@@ -1,6 +1,6 @@
 # feature: criacao de api
 
-Vamos usar mysql. como banco de dados da aplicação, crie a configuração para uso em um servidor local.
+Vamos usar mysql como banco de dados da aplicação, crie a configuração para uso em um servidor local.
 Criar uma api que faça as operações de inclusão, exclusão, consulta e atualização de dados de clientes.
 Deve seguir o padrão controller > service > domain > repository
 Use um arquivo docker com uam imagem do mysql para que o desenvolvedor execeute a apliacação localmente.
