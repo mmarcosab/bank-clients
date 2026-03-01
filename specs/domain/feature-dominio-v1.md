@@ -1,4 +1,4 @@
-# feature: pagamento com cartão
+# feature: criação de domínio
  
 ## requisitos
 - um cliente deve ter seu nome, identificador de cliente, data de nascimento, documento que seja  cpf ou cnpj e endereço completo,
