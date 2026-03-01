@@ -7,7 +7,7 @@
 - Evitar overengineering
 
 ## Fluxo obrigatório
-1. Ler spec.md
+1. Ler as especs do diretório /specs
 2. Gerar tasks.md se não existir
 3. Implementar baseado nas tasks
 4. Criar testes automatizados
