@@ -1,11 +1,11 @@
-package com.bank.clients.service;
+package com.bank.clients.application.service;
 
-import com.bank.clients.domain.ClienteEntity;
+import com.bank.clients.adapter.out.persistence.entity.ClienteEntity;
+import com.bank.clients.application.port.out.ClienteRepositoryPort;
 import com.bank.clients.dto.ClienteRequest;
 import com.bank.clients.dto.ClienteResponse;
 import com.bank.clients.dto.EnderecoRequest;
 import com.bank.clients.exception.ResourceNotFoundException;
-import com.bank.clients.repository.ClienteRepository;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -20,12 +20,12 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
-class ClienteServiceTest {
+class ClienteApplicationServiceTest {
 	@Mock
-	private ClienteRepository clienteRepository;
+	private ClienteRepositoryPort clienteRepository;
 
 	@InjectMocks
-	private ClienteService clienteService;
+	private ClienteApplicationService clienteService;
 
 	@Test
 	void deveCriarClienteComSucesso() {
@@ -52,7 +52,6 @@ class ClienteServiceTest {
 				.isInstanceOf(IllegalArgumentException.class)
 				.hasMessageContaining("ja existe cliente");
 	}
-
 
 	@Test
 	void deveFalharQuandoDocumentoInvalidoNaCriacao() {

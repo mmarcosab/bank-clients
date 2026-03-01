@@ -1,26 +1,28 @@
-package com.bank.clients.service;
+package com.bank.clients.application.service;
 
+import com.bank.clients.adapter.out.persistence.entity.ClienteEntity;
+import com.bank.clients.application.port.in.ClienteUseCase;
+import com.bank.clients.application.port.out.ClienteRepositoryPort;
 import com.bank.clients.domain.Cliente;
-import com.bank.clients.domain.ClienteEntity;
 import com.bank.clients.domain.Endereco;
 import com.bank.clients.domain.FabricaCliente;
 import com.bank.clients.dto.ClienteRequest;
 import com.bank.clients.dto.ClienteResponse;
 import com.bank.clients.dto.EnderecoRequest;
 import com.bank.clients.exception.ResourceNotFoundException;
-import com.bank.clients.repository.ClienteRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
-public class ClienteService {
-	private final ClienteRepository clienteRepository;
+public class ClienteApplicationService implements ClienteUseCase {
+	private final ClienteRepositoryPort clienteRepository;
 
-	public ClienteService(final ClienteRepository clienteRepository) {
+	public ClienteApplicationService(final ClienteRepositoryPort clienteRepository) {
 		this.clienteRepository = clienteRepository;
 	}
 
+	@Override
 	public ClienteResponse criar(final ClienteRequest request) {
 		final Cliente cliente = construirClienteComFabrica(request);
 		final String documentoNormalizado = cliente.documento().valor();
@@ -31,6 +33,7 @@ public class ClienteService {
 		return mapearParaResponse(clienteRepository.save(entity));
 	}
 
+	@Override
 	public ClienteResponse atualizar(final Long id, final ClienteRequest request) {
 		if (!clienteRepository.existsById(id)) {
 			throw new ResourceNotFoundException("cliente nao encontrado");
@@ -44,16 +47,19 @@ public class ClienteService {
 		return mapearParaResponse(clienteRepository.save(entity));
 	}
 
+	@Override
 	public ClienteResponse buscarPorId(final Long id) {
 		return clienteRepository.findById(id)
 				.map(this::mapearParaResponse)
 				.orElseThrow(() -> new ResourceNotFoundException("cliente nao encontrado"));
 	}
 
+	@Override
 	public List<ClienteResponse> listar() {
 		return clienteRepository.findAll().stream().map(this::mapearParaResponse).toList();
 	}
 
+	@Override
 	public void excluir(final Long id) {
 		if (!clienteRepository.existsById(id)) {
 			throw new ResourceNotFoundException("cliente nao encontrado");

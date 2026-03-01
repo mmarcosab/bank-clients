@@ -1,6 +1,6 @@
-package com.bank.clients.repository;
+package com.bank.clients.adapter.out.persistence.repository;
 
-import com.bank.clients.domain.ClienteEntity;
+import com.bank.clients.adapter.out.persistence.entity.ClienteEntity;
 import com.bank.clients.domain.TipoDocumento;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,9 +11,9 @@ import java.time.LocalDate;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @DataJpaTest
-class ClienteRepositoryTest {
+class SpringDataClienteRepositoryTest {
 	@Autowired
-	private ClienteRepository clienteRepository;
+	private SpringDataClienteRepository clienteRepository;
 
 	@Test
 	void deveSalvarEConsultarPorDocumento() {

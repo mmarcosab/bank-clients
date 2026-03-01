@@ -1,9 +1,9 @@
-package com.bank.clients.controller;
+package com.bank.clients.adapter.in.web;
 
+import com.bank.clients.application.port.in.ClienteUseCase;
 import com.bank.clients.dto.ClienteRequest;
 import com.bank.clients.dto.ClienteResponse;
 import com.bank.clients.dto.EnderecoRequest;
-import com.bank.clients.service.ClienteService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,13 +30,13 @@ class ClienteControllerTest {
 	private ObjectMapper objectMapper;
 
 	@MockBean
-	private ClienteService clienteService;
+	private ClienteUseCase clienteUseCase;
 
 	@Test
 	void deveCriarCliente() throws Exception {
 		final ClienteRequest request = requestValido();
 		final ClienteResponse response = responseValido();
-		when(clienteService.criar(request)).thenReturn(response);
+		when(clienteUseCase.criar(request)).thenReturn(response);
 
 		mockMvc.perform(post("/clientes")
 						.contentType(MediaType.APPLICATION_JSON)
@@ -71,7 +71,7 @@ class ClienteControllerTest {
 
 	@Test
 	void deveListarClientes() throws Exception {
-		when(clienteService.listar()).thenReturn(List.of(responseValido()));
+		when(clienteUseCase.listar()).thenReturn(List.of(responseValido()));
 
 		mockMvc.perform(get("/clientes"))
 				.andExpect(status().isOk())

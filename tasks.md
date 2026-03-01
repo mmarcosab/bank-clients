@@ -15,3 +15,10 @@
 - [x] Validar entrada com campos nulos e em branco.
 - [x] Criar testes unitários para controller, service e repository.
 - [x] Disponibilizar arquivo docker para subir MySQL localmente.
+
+## feature-arquitetura-hexagonal-v1
+- [x] Separar portas de entrada e saída na camada de aplicação.
+- [x] Adaptar controller para atuar como adapter de entrada.
+- [x] Adaptar persistência para atuar como adapter de saída.
+- [x] Reorganizar pacotes para refletir arquitetura hexagonal.
+- [x] Atualizar testes unitários para nova estrutura.
