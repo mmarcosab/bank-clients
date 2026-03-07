@@ -42,7 +42,8 @@ class ClienteControllerTest {
 						.contentType(MediaType.APPLICATION_JSON)
 						.content(objectMapper.writeValueAsString(request)))
 				.andExpect(status().isCreated())
-				.andExpect(jsonPath("$.id").value(1));
+				.andExpect(jsonPath("$.id").value(1))
+				.andExpect(jsonPath("$.estadoCivil").value("SOLTEIRO"));
 	}
 
 	@Test
@@ -83,6 +84,7 @@ class ClienteControllerTest {
 				"Cliente Teste",
 				"ID-123",
 				LocalDate.of(1990, 1, 1),
+				"SOLTEIRO",
 				"123.456.789-09",
 				new EnderecoRequest("Rua A", "10", "Apto 1", "Centro", "São Paulo", "SP")
 		);
@@ -94,6 +96,7 @@ class ClienteControllerTest {
 				"Cliente Teste",
 				"ID-123",
 				LocalDate.of(1990, 1, 1),
+				"SOLTEIRO",
 				"CPF",
 				"12345678909",
 				new EnderecoRequest("Rua A", "10", "Apto 1", "Centro", "São Paulo", "SP")

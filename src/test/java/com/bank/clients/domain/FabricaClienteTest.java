@@ -17,12 +17,14 @@ class FabricaClienteTest {
 				"Maria da Silva",
 				"CLIENTE-001",
 				LocalDate.of(1990, 5, 10),
+				"SOLTEIRO",
 				"529.982.247-25",
 				endereco
 		);
 
 		assertEquals("Maria da Silva", cliente.nome());
 		assertEquals("CLIENTE-001", cliente.identificadorCliente());
+		assertEquals(EstadoCivil.SOLTEIRO, cliente.estadoCivil());
 		assertEquals(TipoDocumento.CPF, cliente.documento().tipo());
 		assertEquals("52998224725", cliente.documento().valor());
 	}
@@ -35,10 +37,12 @@ class FabricaClienteTest {
 				"Empresa XPTO",
 				"CLIENTE-002",
 				LocalDate.of(2001, 1, 1),
+				"CASADO",
 				"04.252.011/0001-10",
 				endereco
 		);
 
+		assertEquals(EstadoCivil.CASADO, cliente.estadoCivil());
 		assertEquals(TipoDocumento.CNPJ, cliente.documento().tipo());
 		assertEquals("04252011000110", cliente.documento().valor());
 	}
@@ -52,6 +56,7 @@ class FabricaClienteTest {
 				nomeLongo,
 				"CLIENTE-003",
 				LocalDate.of(1985, 8, 20),
+				"DIVORCIADO",
 				"52998224725",
 				endereco
 		));
@@ -65,6 +70,7 @@ class FabricaClienteTest {
 				"Joao",
 				"CLIENTE-004",
 				LocalDate.of(1995, 2, 15),
+				"SOLTEIRO",
 				"11111111111",
 				endereco
 		));
@@ -78,7 +84,22 @@ class FabricaClienteTest {
 				"Empresa Invalida",
 				"CLIENTE-005",
 				LocalDate.of(2000, 2, 15),
+				"CASADO",
 				"11.111.111/1111-11",
+				endereco
+		));
+	}
+
+	@Test
+	void deveRejeitarEstadoCivilInvalido() {
+		final Endereco endereco = new Endereco("Rua F", "50", "Casa", "Centro", "Florianopolis", "SC");
+
+		assertThrows(IllegalArgumentException.class, () -> FabricaCliente.criar(
+				"Cliente Invalido",
+				"CLIENTE-006",
+				LocalDate.of(1992, 3, 10),
+				"OUTRO",
+				"52998224725",
 				endereco
 		));
 	}

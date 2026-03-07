@@ -66,6 +66,7 @@ public class ClienteService {
 				request.nome(),
 				request.identificadorCliente(),
 				request.dataNascimento(),
+				request.estadoCivil(),
 				request.documento(),
 				new Endereco(
 						request.endereco().rua(),
@@ -84,6 +85,7 @@ public class ClienteService {
 		entity.setNome(cliente.nome());
 		entity.setIdentificadorCliente(cliente.identificadorCliente());
 		entity.setDataNascimento(cliente.dataNascimento());
+		entity.setEstadoCivil(cliente.estadoCivil());
 		entity.setTipoDocumento(cliente.documento().tipo());
 		entity.setDocumento(cliente.documento().valor());
 		entity.setRua(cliente.endereco().rua());
@@ -101,6 +103,7 @@ public class ClienteService {
 				entity.getNome(),
 				entity.getIdentificadorCliente(),
 				entity.getDataNascimento(),
+				entity.getEstadoCivil().name(),
 				entity.getTipoDocumento().name(),
 				entity.getDocumento(),
 				new EnderecoRequest(

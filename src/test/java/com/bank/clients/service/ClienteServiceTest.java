@@ -60,6 +60,7 @@ class ClienteServiceTest {
 				"Cliente Teste",
 				"ID-123",
 				LocalDate.of(1990, 1, 1),
+				"SOLTEIRO",
 				"111.111.111-11",
 				new EnderecoRequest("Rua A", "10", "Apto 1", "Centro", "São Paulo", "SP")
 		);
@@ -68,6 +69,23 @@ class ClienteServiceTest {
 				.isInstanceOf(IllegalArgumentException.class)
 				.hasMessageContaining("CPF invalido");
 	}
+
+	@Test
+	void deveFalharQuandoEstadoCivilInvalidoNaCriacao() {
+		final ClienteRequest request = new ClienteRequest(
+				"Cliente Teste",
+				"ID-123",
+				LocalDate.of(1990, 1, 1),
+				"QUALQUER",
+				"123.456.789-09",
+				new EnderecoRequest("Rua A", "10", "Apto 1", "Centro", "São Paulo", "SP")
+		);
+
+		assertThatThrownBy(() -> clienteService.criar(request))
+				.isInstanceOf(IllegalArgumentException.class)
+				.hasMessageContaining("estado civil invalido");
+	}
+
 
 	@Test
 	void deveRetornarErroQuandoClienteNaoEncontradoNaBusca() {
@@ -82,6 +100,7 @@ class ClienteServiceTest {
 				"Cliente Teste",
 				"ID-123",
 				LocalDate.of(1990, 1, 1),
+				"SOLTEIRO",
 				"123.456.789-09",
 				new EnderecoRequest("Rua A", "10", "Apto 1", "Centro", "São Paulo", "SP")
 		);

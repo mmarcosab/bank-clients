@@ -1,6 +1,7 @@
 package com.bank.clients.repository;
 
 import com.bank.clients.domain.ClienteEntity;
+import com.bank.clients.domain.EstadoCivil;
 import com.bank.clients.domain.TipoDocumento;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +22,7 @@ class ClienteRepositoryTest {
 		entity.setNome("Cliente Repo");
 		entity.setIdentificadorCliente("ID-999");
 		entity.setDataNascimento(LocalDate.of(1985, 5, 10));
+		entity.setEstadoCivil(EstadoCivil.SOLTEIRO);
 		entity.setTipoDocumento(TipoDocumento.CPF);
 		entity.setDocumento("12345678909");
 		entity.setRua("Rua B");

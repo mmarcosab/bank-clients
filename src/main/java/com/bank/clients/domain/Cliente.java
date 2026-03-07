@@ -7,6 +7,7 @@ public record Cliente(
 		String nome,
 		String identificadorCliente,
 		LocalDate dataNascimento,
+		EstadoCivil estadoCivil,
 		Documento documento,
 		Endereco endereco
 ) {
@@ -22,6 +23,9 @@ public record Cliente(
 		}
 		if (Objects.isNull(dataNascimento)) {
 			throw new IllegalArgumentException("data de nascimento eh obrigatoria");
+		}
+		if (Objects.isNull(estadoCivil)) {
+			throw new IllegalArgumentException("estado civil eh obrigatorio");
 		}
 		if (Objects.isNull(documento)) {
 			throw new IllegalArgumentException("documento eh obrigatorio");
