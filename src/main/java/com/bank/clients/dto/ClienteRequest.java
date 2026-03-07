@@ -10,6 +10,7 @@ public record ClienteRequest(
 		@NotBlank String nome,
 		@NotBlank String identificadorCliente,
 		@NotNull LocalDate dataNascimento,
+		@NotBlank String estadoCivil,
 		@NotBlank String documento,
 		@NotNull @Valid EnderecoRequest endereco
 ) {

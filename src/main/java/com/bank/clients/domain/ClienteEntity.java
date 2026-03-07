@@ -28,6 +28,10 @@ public class ClienteEntity {
 	private LocalDate dataNascimento;
 
 	@Enumerated(EnumType.STRING)
+	@Column(nullable = false, length = 20)
+	private EstadoCivil estadoCivil;
+
+	@Enumerated(EnumType.STRING)
 	@Column(nullable = false, length = 4)
 	private TipoDocumento tipoDocumento;
 
@@ -82,6 +86,14 @@ public class ClienteEntity {
 
 	public void setDataNascimento(final LocalDate dataNascimento) {
 		this.dataNascimento = dataNascimento;
+	}
+
+	public EstadoCivil getEstadoCivil() {
+		return estadoCivil;
+	}
+
+	public void setEstadoCivil(final EstadoCivil estadoCivil) {
+		this.estadoCivil = estadoCivil;
 	}
 
 	public TipoDocumento getTipoDocumento() {

@@ -7,6 +7,7 @@ public record ClienteResponse(
 		String nome,
 		String identificadorCliente,
 		LocalDate dataNascimento,
+		String estadoCivil,
 		String tipoDocumento,
 		String documento,
 		EnderecoRequest endereco
