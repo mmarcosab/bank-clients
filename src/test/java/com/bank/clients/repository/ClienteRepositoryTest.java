@@ -1,5 +1,7 @@
 package com.bank.clients.repository;
 
+import com.bank.clients.adapter.out.persistence.ClienteJpaRepository;
+
 import com.bank.clients.domain.ClienteEntity;
 import com.bank.clients.domain.EstadoCivil;
 import com.bank.clients.domain.TipoDocumento;
@@ -14,7 +16,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 @DataJpaTest
 class ClienteRepositoryTest {
 	@Autowired
-	private ClienteRepository clienteRepository;
+	private ClienteJpaRepository clienteRepository;
 
 	@Test
 	void deveSalvarEConsultarPorDocumento() {

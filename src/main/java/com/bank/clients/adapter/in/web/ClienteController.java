@@ -1,8 +1,8 @@
-package com.bank.clients.controller;
+package com.bank.clients.adapter.in.web;
 
+import com.bank.clients.application.port.in.ClienteUseCase;
 import com.bank.clients.dto.ClienteRequest;
 import com.bank.clients.dto.ClienteResponse;
-import com.bank.clients.service.ClienteService;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -20,36 +20,36 @@ import java.util.List;
 @RestController
 @RequestMapping("/clientes")
 public class ClienteController {
-	private final ClienteService clienteService;
+	private final ClienteUseCase clienteUseCase;
 
-	public ClienteController(final ClienteService clienteService) {
-		this.clienteService = clienteService;
+	public ClienteController(final ClienteUseCase clienteUseCase) {
+		this.clienteUseCase = clienteUseCase;
 	}
 
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
 	public ClienteResponse criar(@RequestBody @Valid final ClienteRequest request) {
-		return clienteService.criar(request);
+		return clienteUseCase.criar(request);
 	}
 
 	@PutMapping("/{id}")
 	public ClienteResponse atualizar(@PathVariable final Long id, @RequestBody @Valid final ClienteRequest request) {
-		return clienteService.atualizar(id, request);
+		return clienteUseCase.atualizar(id, request);
 	}
 
 	@GetMapping("/{id}")
 	public ClienteResponse buscarPorId(@PathVariable final Long id) {
-		return clienteService.buscarPorId(id);
+		return clienteUseCase.buscarPorId(id);
 	}
 
 	@GetMapping
 	public List<ClienteResponse> listar() {
-		return clienteService.listar();
+		return clienteUseCase.listar();
 	}
 
 	@DeleteMapping("/{id}")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
 	public void excluir(@PathVariable final Long id) {
-		clienteService.excluir(id);
+		clienteUseCase.excluir(id);
 	}
 }

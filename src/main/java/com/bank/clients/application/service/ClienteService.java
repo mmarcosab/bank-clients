@@ -1,5 +1,7 @@
-package com.bank.clients.service;
+package com.bank.clients.application.service;
 
+import com.bank.clients.application.port.in.ClienteUseCase;
+import com.bank.clients.application.port.out.ClientePersistencePort;
 import com.bank.clients.domain.Cliente;
 import com.bank.clients.domain.ClienteEntity;
 import com.bank.clients.domain.Endereco;
@@ -8,57 +10,61 @@ import com.bank.clients.dto.ClienteRequest;
 import com.bank.clients.dto.ClienteResponse;
 import com.bank.clients.dto.EnderecoRequest;
 import com.bank.clients.exception.ResourceNotFoundException;
-import com.bank.clients.repository.ClienteRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
-public class ClienteService {
-	private final ClienteRepository clienteRepository;
+public class ClienteService implements ClienteUseCase {
+	private final ClientePersistencePort clientePersistencePort;
 
-	public ClienteService(final ClienteRepository clienteRepository) {
-		this.clienteRepository = clienteRepository;
+	public ClienteService(final ClientePersistencePort clientePersistencePort) {
+		this.clientePersistencePort = clientePersistencePort;
 	}
 
+	@Override
 	public ClienteResponse criar(final ClienteRequest request) {
 		final Cliente cliente = construirClienteComFabrica(request);
 		final String documentoNormalizado = cliente.documento().valor();
-		if (clienteRepository.existsByDocumento(documentoNormalizado)) {
+		if (clientePersistencePort.existsByDocumento(documentoNormalizado)) {
 			throw new IllegalArgumentException("ja existe cliente com este documento");
 		}
 		final ClienteEntity entity = mapearParaEntity(cliente, null);
-		return mapearParaResponse(clienteRepository.save(entity));
+		return mapearParaResponse(clientePersistencePort.save(entity));
 	}
 
+	@Override
 	public ClienteResponse atualizar(final Long id, final ClienteRequest request) {
-		if (!clienteRepository.existsById(id)) {
+		if (!clientePersistencePort.existsById(id)) {
 			throw new ResourceNotFoundException("cliente nao encontrado");
 		}
 		final Cliente cliente = construirClienteComFabrica(request);
 		final String documentoNormalizado = cliente.documento().valor();
-		if (clienteRepository.existsByDocumentoAndIdNot(documentoNormalizado, id)) {
+		if (clientePersistencePort.existsByDocumentoAndIdNot(documentoNormalizado, id)) {
 			throw new IllegalArgumentException("ja existe cliente com este documento");
 		}
 		final ClienteEntity entity = mapearParaEntity(cliente, id);
-		return mapearParaResponse(clienteRepository.save(entity));
+		return mapearParaResponse(clientePersistencePort.save(entity));
 	}
 
+	@Override
 	public ClienteResponse buscarPorId(final Long id) {
-		return clienteRepository.findById(id)
+		return clientePersistencePort.findById(id)
 				.map(this::mapearParaResponse)
 				.orElseThrow(() -> new ResourceNotFoundException("cliente nao encontrado"));
 	}
 
+	@Override
 	public List<ClienteResponse> listar() {
-		return clienteRepository.findAll().stream().map(this::mapearParaResponse).toList();
+		return clientePersistencePort.findAll().stream().map(this::mapearParaResponse).toList();
 	}
 
+	@Override
 	public void excluir(final Long id) {
-		if (!clienteRepository.existsById(id)) {
+		if (!clientePersistencePort.existsById(id)) {
 			throw new ResourceNotFoundException("cliente nao encontrado");
 		}
-		clienteRepository.deleteById(id);
+		clientePersistencePort.deleteById(id);
 	}
 
 	private Cliente construirClienteComFabrica(final ClienteRequest request) {
