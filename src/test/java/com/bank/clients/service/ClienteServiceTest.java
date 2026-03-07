@@ -40,6 +40,7 @@ class ClienteServiceTest {
 		final ClienteResponse response = clienteService.criar(request);
 
 		assertThat(response.id()).isEqualTo(1L);
+		assertThat(response.nomeMae()).isEqualTo("Mae Teste");
 		assertThat(response.documento()).isEqualTo("12345678909");
 	}
 
@@ -58,6 +59,7 @@ class ClienteServiceTest {
 	void deveFalharQuandoDocumentoInvalidoNaCriacao() {
 		final ClienteRequest request = new ClienteRequest(
 				"Cliente Teste",
+				"Mae Teste",
 				"ID-123",
 				LocalDate.of(1990, 1, 1),
 				"SOLTEIRO",
@@ -74,6 +76,7 @@ class ClienteServiceTest {
 	void deveFalharQuandoEstadoCivilInvalidoNaCriacao() {
 		final ClienteRequest request = new ClienteRequest(
 				"Cliente Teste",
+				"Mae Teste",
 				"ID-123",
 				LocalDate.of(1990, 1, 1),
 				"QUALQUER",
@@ -88,6 +91,24 @@ class ClienteServiceTest {
 
 
 	@Test
+	void deveFalharQuandoNomeMaeEmBrancoNaCriacao() {
+		final ClienteRequest request = new ClienteRequest(
+				"Cliente Teste",
+				"",
+				"ID-123",
+				LocalDate.of(1990, 1, 1),
+				"SOLTEIRO",
+				"123.456.789-09",
+				new EnderecoRequest("Rua A", "10", "Apto 1", "Centro", "São Paulo", "SP")
+		);
+
+		assertThatThrownBy(() -> clienteService.criar(request))
+				.isInstanceOf(IllegalArgumentException.class)
+				.hasMessageContaining("nome da mae eh obrigatorio");
+	}
+
+
+	@Test
 	void deveRetornarErroQuandoClienteNaoEncontradoNaBusca() {
 		when(clienteRepository.findById(10L)).thenReturn(Optional.empty());
 
@@ -98,6 +119,7 @@ class ClienteServiceTest {
 	private ClienteRequest requestValido() {
 		return new ClienteRequest(
 				"Cliente Teste",
+				"Mae Teste",
 				"ID-123",
 				LocalDate.of(1990, 1, 1),
 				"SOLTEIRO",

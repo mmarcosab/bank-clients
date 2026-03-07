@@ -8,6 +8,7 @@ import java.time.LocalDate;
 
 public record ClienteRequest(
 		@NotBlank String nome,
+		@NotBlank String nomeMae,
 		@NotBlank String identificadorCliente,
 		@NotNull LocalDate dataNascimento,
 		@NotBlank String estadoCivil,

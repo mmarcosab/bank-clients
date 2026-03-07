@@ -8,6 +8,7 @@ public final class FabricaCliente {
 
 	public static Cliente criar(
 			final String nome,
+			final String nomeMae,
 			final String identificadorCliente,
 			final LocalDate dataNascimento,
 			final String estadoCivil,
@@ -16,6 +17,6 @@ public final class FabricaCliente {
 	) {
 		final Documento documento = Documento.de(documentoBruto);
 		final EstadoCivil estadoCivilNormalizado = EstadoCivil.de(estadoCivil);
-		return new Cliente(nome, identificadorCliente, dataNascimento, estadoCivilNormalizado, documento, endereco);
+		return new Cliente(nome, nomeMae, identificadorCliente, dataNascimento, estadoCivilNormalizado, documento, endereco);
 	}
 }

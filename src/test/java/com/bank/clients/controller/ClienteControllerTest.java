@@ -43,7 +43,8 @@ class ClienteControllerTest {
 						.content(objectMapper.writeValueAsString(request)))
 				.andExpect(status().isCreated())
 				.andExpect(jsonPath("$.id").value(1))
-				.andExpect(jsonPath("$.estadoCivil").value("SOLTEIRO"));
+				.andExpect(jsonPath("$.estadoCivil").value("SOLTEIRO"))
+				.andExpect(jsonPath("$.nomeMae").value("Mae Teste"));
 	}
 
 	@Test
@@ -82,6 +83,7 @@ class ClienteControllerTest {
 	private ClienteRequest requestValido() {
 		return new ClienteRequest(
 				"Cliente Teste",
+				"Mae Teste",
 				"ID-123",
 				LocalDate.of(1990, 1, 1),
 				"SOLTEIRO",
@@ -94,6 +96,7 @@ class ClienteControllerTest {
 		return new ClienteResponse(
 				1L,
 				"Cliente Teste",
+				"Mae Teste",
 				"ID-123",
 				LocalDate.of(1990, 1, 1),
 				"SOLTEIRO",

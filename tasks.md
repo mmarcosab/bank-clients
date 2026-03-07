@@ -22,3 +22,10 @@
 - [x] Expor estado civil nos contratos da API (request/response).
 - [x] Atualizar service/factory para mapear estado civil na criação e atualização.
 - [x] Criar testes automatizados cobrindo estado civil válido e inválido.
+
+## feature-nome-mae-cliente-v1
+- [x] Adicionar nome da mãe ao domínio de Cliente com validação de obrigatoriedade e limite de 60 caracteres.
+- [x] Persistir nome da mãe na entidade JPA de cliente.
+- [x] Expor nome da mãe nos contratos da API (request/response).
+- [x] Atualizar service/factory para mapear nome da mãe na criação e atualização.
+- [x] Criar testes automatizados cobrindo cenário válido e inválido para nome da mãe.

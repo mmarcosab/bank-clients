@@ -64,6 +64,7 @@ public class ClienteService {
 	private Cliente construirClienteComFabrica(final ClienteRequest request) {
 		return FabricaCliente.criar(
 				request.nome(),
+				request.nomeMae(),
 				request.identificadorCliente(),
 				request.dataNascimento(),
 				request.estadoCivil(),
@@ -83,6 +84,7 @@ public class ClienteService {
 		final ClienteEntity entity = new ClienteEntity();
 		entity.setId(id);
 		entity.setNome(cliente.nome());
+		entity.setNomeMae(cliente.nomeMae());
 		entity.setIdentificadorCliente(cliente.identificadorCliente());
 		entity.setDataNascimento(cliente.dataNascimento());
 		entity.setEstadoCivil(cliente.estadoCivil());
@@ -101,6 +103,7 @@ public class ClienteService {
 		return new ClienteResponse(
 				entity.getId(),
 				entity.getNome(),
+				entity.getNomeMae(),
 				entity.getIdentificadorCliente(),
 				entity.getDataNascimento(),
 				entity.getEstadoCivil().name(),

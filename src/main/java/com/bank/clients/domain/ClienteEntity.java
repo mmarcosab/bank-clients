@@ -21,6 +21,9 @@ public class ClienteEntity {
 	@Column(nullable = false, length = 60)
 	private String nome;
 
+	@Column(nullable = false, length = 60)
+	private String nomeMae;
+
 	@Column(nullable = false)
 	private String identificadorCliente;
 
@@ -70,6 +73,14 @@ public class ClienteEntity {
 
 	public void setNome(final String nome) {
 		this.nome = nome;
+	}
+
+	public String getNomeMae() {
+		return nomeMae;
+	}
+
+	public void setNomeMae(final String nomeMae) {
+		this.nomeMae = nomeMae;
 	}
 
 	public String getIdentificadorCliente() {

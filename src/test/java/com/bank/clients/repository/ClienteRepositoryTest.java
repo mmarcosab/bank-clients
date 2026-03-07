@@ -20,6 +20,7 @@ class ClienteRepositoryTest {
 	void deveSalvarEConsultarPorDocumento() {
 		final ClienteEntity entity = new ClienteEntity();
 		entity.setNome("Cliente Repo");
+		entity.setNomeMae("Mae Repo");
 		entity.setIdentificadorCliente("ID-999");
 		entity.setDataNascimento(LocalDate.of(1985, 5, 10));
 		entity.setEstadoCivil(EstadoCivil.SOLTEIRO);

@@ -15,6 +15,7 @@ class FabricaClienteTest {
 
 		final Cliente cliente = FabricaCliente.criar(
 				"Maria da Silva",
+				"Ana da Silva",
 				"CLIENTE-001",
 				LocalDate.of(1990, 5, 10),
 				"SOLTEIRO",
@@ -23,6 +24,7 @@ class FabricaClienteTest {
 		);
 
 		assertEquals("Maria da Silva", cliente.nome());
+		assertEquals("Ana da Silva", cliente.nomeMae());
 		assertEquals("CLIENTE-001", cliente.identificadorCliente());
 		assertEquals(EstadoCivil.SOLTEIRO, cliente.estadoCivil());
 		assertEquals(TipoDocumento.CPF, cliente.documento().tipo());
@@ -35,6 +37,7 @@ class FabricaClienteTest {
 
 		final Cliente cliente = FabricaCliente.criar(
 				"Empresa XPTO",
+				"Maria XPTO",
 				"CLIENTE-002",
 				LocalDate.of(2001, 1, 1),
 				"CASADO",
@@ -54,7 +57,23 @@ class FabricaClienteTest {
 
 		assertThrows(IllegalArgumentException.class, () -> FabricaCliente.criar(
 				nomeLongo,
+				"Nome Mae 003",
 				"CLIENTE-003",
+				LocalDate.of(1985, 8, 20),
+				"DIVORCIADO",
+				"52998224725",
+				endereco
+		));
+	}
+
+	@Test
+	void deveRejeitarNomeMaeEmBranco() {
+		final Endereco endereco = new Endereco("Rua C", "1", "Casa", "Bairro", "Cidade", "ST");
+
+		assertThrows(IllegalArgumentException.class, () -> FabricaCliente.criar(
+				"Cliente",
+				"",
+				"CLIENTE-007",
 				LocalDate.of(1985, 8, 20),
 				"DIVORCIADO",
 				"52998224725",
@@ -68,6 +87,7 @@ class FabricaClienteTest {
 
 		assertThrows(IllegalArgumentException.class, () -> FabricaCliente.criar(
 				"Joao",
+				"Nome Mae 004",
 				"CLIENTE-004",
 				LocalDate.of(1995, 2, 15),
 				"SOLTEIRO",
@@ -82,6 +102,7 @@ class FabricaClienteTest {
 
 		assertThrows(IllegalArgumentException.class, () -> FabricaCliente.criar(
 				"Empresa Invalida",
+				"Nome Mae 005",
 				"CLIENTE-005",
 				LocalDate.of(2000, 2, 15),
 				"CASADO",
@@ -96,6 +117,7 @@ class FabricaClienteTest {
 
 		assertThrows(IllegalArgumentException.class, () -> FabricaCliente.criar(
 				"Cliente Invalido",
+				"Nome Mae 006",
 				"CLIENTE-006",
 				LocalDate.of(1992, 3, 10),
 				"OUTRO",
