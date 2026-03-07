@@ -29,3 +29,10 @@
 - [x] Expor nome da mãe nos contratos da API (request/response).
 - [x] Atualizar service/factory para mapear nome da mãe na criação e atualização.
 - [x] Criar testes automatizados cobrindo cenário válido e inválido para nome da mãe.
+
+## feature-arquitetura-hexagonal-e-cobertura
+- [x] Reorganizar camadas para arquitetura hexagonal (adapters, ports e application service).
+- [x] Configurar JaCoCo no Maven para geração de relatório e validação de cobertura mínima de 90%.
+- [x] Complementar testes para fluxos de update e delete no controller.
+- [x] Complementar testes para fluxos de update e delete no service.
+- [x] Atualizar especificações para explicitar nome da mãe e estado civil como requisitos.

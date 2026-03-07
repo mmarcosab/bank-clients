@@ -4,7 +4,7 @@
 Adicionar o atributo **estado civil** à entidade de cliente para permitir o registro, persistência e consulta dessa informação de forma padronizada e validada.
 
 ## Contexto
-Atualmente a entidade cliente não contempla o estado civil. A feature deve evoluir o domínio e os fluxos de cadastro/atualização para suportar esse novo dado sem quebrar comportamentos existentes.
+Atualmente a entidade cliente não contempla o estado civil. A feature deve evoluir o domínio e os fluxos de cadastro/atualização para suportar esse novo dado sem quebrar comportamentos existentes. Também deve garantir que nome da mãe siga como requisito obrigatório já padronizado no domínio.
 
 ## Regras de negócio
 - Estado civil é um campo obrigatório para cadastro de cliente.
@@ -20,7 +20,7 @@ Atualmente a entidade cliente não contempla o estado civil. A feature deve evol
 
 ## Requisitos funcionais
 - A entidade cliente deve possuir o atributo `estadoCivil`.
-- A criação de cliente deve exigir o preenchimento de `estadoCivil`.
+- A criação de cliente deve exigir o preenchimento de `estadoCivil` e `nomeMae`.
 - A atualização de cliente deve aceitar `estadoCivil`.
 - A API de consulta (individual e lista) deve expor `estadoCivil` no payload de resposta.
 - O repositório deve persistir `estadoCivil` no banco de dados.

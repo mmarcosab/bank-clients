@@ -1,9 +1,10 @@
 package com.bank.clients.controller;
 
+import com.bank.clients.adapter.in.web.ClienteController;
+import com.bank.clients.application.port.in.ClienteUseCase;
 import com.bank.clients.dto.ClienteRequest;
 import com.bank.clients.dto.ClienteResponse;
 import com.bank.clients.dto.EnderecoRequest;
-import com.bank.clients.service.ClienteService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,9 +16,12 @@ import org.springframework.test.web.servlet.MockMvc;
 import java.time.LocalDate;
 import java.util.List;
 
+import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.when;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -30,13 +34,13 @@ class ClienteControllerTest {
 	private ObjectMapper objectMapper;
 
 	@MockBean
-	private ClienteService clienteService;
+	private ClienteUseCase clienteUseCase;
 
 	@Test
 	void deveCriarCliente() throws Exception {
 		final ClienteRequest request = requestValido();
 		final ClienteResponse response = responseValido();
-		when(clienteService.criar(request)).thenReturn(response);
+		when(clienteUseCase.criar(request)).thenReturn(response);
 
 		mockMvc.perform(post("/clientes")
 						.contentType(MediaType.APPLICATION_JSON)
@@ -45,6 +49,26 @@ class ClienteControllerTest {
 				.andExpect(jsonPath("$.id").value(1))
 				.andExpect(jsonPath("$.estadoCivil").value("SOLTEIRO"))
 				.andExpect(jsonPath("$.nomeMae").value("Mae Teste"));
+	}
+
+	@Test
+	void deveAtualizarCliente() throws Exception {
+		final ClienteRequest request = requestValido();
+		when(clienteUseCase.atualizar(1L, request)).thenReturn(responseValido());
+
+		mockMvc.perform(put("/clientes/1")
+						.contentType(MediaType.APPLICATION_JSON)
+						.content(objectMapper.writeValueAsString(request)))
+				.andExpect(status().isOk())
+				.andExpect(jsonPath("$.id").value(1));
+	}
+
+	@Test
+	void deveExcluirCliente() throws Exception {
+		doNothing().when(clienteUseCase).excluir(1L);
+
+		mockMvc.perform(delete("/clientes/1"))
+				.andExpect(status().isNoContent());
 	}
 
 	@Test
@@ -73,7 +97,7 @@ class ClienteControllerTest {
 
 	@Test
 	void deveListarClientes() throws Exception {
-		when(clienteService.listar()).thenReturn(List.of(responseValido()));
+		when(clienteUseCase.listar()).thenReturn(List.of(responseValido()));
 
 		mockMvc.perform(get("/clientes"))
 				.andExpect(status().isOk())
