@@ -5,6 +5,7 @@ import java.util.Objects;
 
 public record Cliente(
 		String nome,
+		String nomeMae,
 		String identificadorCliente,
 		LocalDate dataNascimento,
 		EstadoCivil estadoCivil,
@@ -17,6 +18,12 @@ public record Cliente(
 		}
 		if (nome.length() > 60) {
 			throw new IllegalArgumentException("nome deve ter no maximo 60 caracteres");
+		}
+		if (Objects.isNull(nomeMae) || nomeMae.isBlank()) {
+			throw new IllegalArgumentException("nome da mae eh obrigatorio");
+		}
+		if (nomeMae.length() > 60) {
+			throw new IllegalArgumentException("nome da mae deve ter no maximo 60 caracteres");
 		}
 		if (Objects.isNull(identificadorCliente) || identificadorCliente.isBlank()) {
 			throw new IllegalArgumentException("identificador do cliente eh obrigatorio");
